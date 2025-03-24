@@ -1,5 +1,7 @@
 #include<iostream>
+#define MAX 100
 using namespace std;
 int main ( ) {
+    int array 
     return 0;
 }
