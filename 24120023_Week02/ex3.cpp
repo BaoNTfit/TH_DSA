@@ -5,7 +5,6 @@ int main()
 {
     int n;
     cin >> n;
-
     int *a = new int[n];
     for (int i = 0; i < n; i++)
         cin >> a[i];
@@ -29,4 +28,5 @@ int MinElementInRotatedSort(int a[], int n)
         else
             right = mid - 1;
     }
+    return 0;
 }
