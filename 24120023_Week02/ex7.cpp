@@ -39,7 +39,8 @@ void combine(int a[], int s, int m, int e) {
     }
     delete [] buffer;
 }
-// auxiliary function (helper function)
+
+// auxiliary function (helper function - combine and recursive )
 void mrgSort(int a[], int s, int e) {
     if(s>=e) return;
     int m = (s+e)/2;
@@ -48,7 +49,7 @@ void mrgSort(int a[], int s, int e) {
     combine(a, s, m, e);
 }
 
-void mrgSort(int a[], int n) { // wrapper function
+void mrgSort(int a[], int n) { // recursion
     mrgSort(a, 0, n-1 );
 }
 
@@ -70,8 +71,6 @@ int BinarySearch(int a[], int start, int end, int target){
 }
 
 void TwoPointers(int a[], int n) {
-    // Sort array before doing request
-    mrgSort(a,n);
     int left = 0, right = n-1;
     while(left < right) {
         int temp = 0 -a[left] - a[right];
@@ -86,26 +85,23 @@ void TwoPointers(int a[], int n) {
     }
 }
 void Triplets (int nums[],int n) {
+    cout << "[";
     for (int i = 0; i < n - 2; i++) {
-        // Skip duplicates for i
-        if (i > 0 && nums[i] == nums[i - 1]) {
-            continue;
-        }
+        // Skip duplicates for i as the array is sorted
+        if (i > 0 && nums[i] == nums[i - 1]) continue;
         int left = i + 1;
         int right = n - 1;
         while (left < right) {
             int sum = nums[i] + nums[left] + nums[right];
             if (sum == 0) {
-                // Print triplet
-                cout << "[" << nums[i] << ", " << nums[left] << ", " << nums[right] << "]" << endl;
-                // Move pointers
+                cout << "[" << nums[i] << ", " << nums[left] << ", " << nums[right] << "]" << ",";
+                // Move pointers left and right
                 left++;
                 right--;
-                // Skip duplicates for left
+                // Skip duplicates for left and right, same as the outer for 
                 while (left < right && nums[left] == nums[left - 1]) {
                     left++;
                 }
-                // Skip duplicates for right
                 while (left < right && nums[right] == nums[right + 1]) {
                     right--;
                 }
@@ -116,6 +112,7 @@ void Triplets (int nums[],int n) {
             }
         }
     }
+    cout << "]";
 }
 void BruteForce(int a[], int n){
     for(int i = 0; i < n; i++) {
@@ -129,6 +126,7 @@ void BruteForce(int a[], int n){
 
 int main () {
     int n;
+    cout << "Nhap So luong phan tu cua mang: ";
     cin >> n;
     int *nums = new int [n];
     for (int i = 0; i < n; i ++) {

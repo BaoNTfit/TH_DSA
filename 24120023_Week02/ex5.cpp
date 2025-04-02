@@ -2,13 +2,7 @@
 #include<algorithm>
 using namespace std;
 
-// Custom min function to avoid <algorithm>
-int min(int a, int b) {
-    return a < b ? a : b;
-}
-
-// Custom lower_bound function to find the smallest index where arr[index] >= value
-int lower_bound(int* arr, int start, int end, int value) {
+int BinarySearch(int arr[], int start, int end, int value) {
     while (start < end) {
         int mid = start + (end - start) / 2;
         if (arr[mid] < value) {
@@ -21,29 +15,28 @@ int lower_bound(int* arr, int start, int end, int value) {
 }
 
 // Function to find minimal subarray length
-int BinaryMethod(int* nums, int n,int target) {
-    if (n == 0) return 0; // Handle empty array
+int FindMinimalSubArray(int* nums, int n,int target) {
+    if (n == 0) return 0; 
 
-    // Allocate prefix sum array dynamically
     int* prefix = new int[n + 1];
     prefix[0] = 0;
     for (int i = 1; i <= n; i++) {
         prefix[i] = prefix[i - 1] + nums[i - 1];
     }
 
-    int min_length = n + 1; // Larger than any possible subarray length
+    int min_length = n + 1; 
 
     for (int i = 0; i < n; i++) {
-        int needed = prefix[i] + target; // Sum we need to reach or exceed
-        int k = lower_bound(prefix, i + 1, n + 1, needed);
-        if (k <= n) { // Valid subarray found
+        int needed = prefix[i] + target; 
+        int k = BinarySearch(prefix, i + 1, n + 1, needed);
+        if (k <= n) { 
             int length = k - i;
             min_length = min(min_length, length);
         }
     }
 
-    delete[] prefix; // Free allocated memory
-    return min_length > n ? 0 : min_length; // Return 0 if no subarray found
+    delete[] prefix; 
+    return min_length > n ? 0 : min_length; 
 }
 
 // Bruteforce ban dau
@@ -52,12 +45,12 @@ int bruteforce(int a[],int n,int target){
     for (int i = 0; i < n; i++) sum+=a[i];
     if (sum < target) return 0;
 
-    int ans = n + 1; // Larger than any possible subarray length
+    int ans = n + 1;
     for (int i = 0; i < n; i++) {
-        int current_sum = 0;
+        int temp = 0;
         for (int j = i; j < n; j++) {
-            current_sum += a[j];
-            if (current_sum >= target) {
+            temp += a[j];
+            if (temp >= target) {
                 int length = j - i + 1;
                 ans = min(ans, length);
                 break; 
@@ -67,18 +60,18 @@ int bruteforce(int a[],int n,int target){
     return ans;
 }
 
-// Phuong phap dua theo danh gia bai toan
+// Phuong phap dua theo danh gia bai toan ( search them tu chatGPT )
 int SlidingWindows(int nums[], int n, int target){
     if (n==0) return 0;
     int min_length = INT_MAX;
-    int current_sum = 0;
+    int sum = 0;
     int left = 0; 
     
     for(int right = 0; right < n; right++) {
-        current_sum += nums[right];
-        while (current_sum >= target && left <= right) {
+        sum += nums[right];
+        while (sum >= target && left <= right) {
             min_length = min(min_length, right-left+1);
-            current_sum -= nums[left];
+            sum -= nums[left];
             left++;
         }
     }
@@ -96,8 +89,8 @@ int main () {
     for (int i = 0; i < n; i ++) {
         cin >> nums[i];
     }
-    cout << SlidingWindows(nums,n,target);
-    //bruteforce(nums, n, target) << " " << BinaryMethod(nums, n, target);
+    cout << FindMinimalSubArray(nums,n,target);
+    //cout << bruteforce(nums, n, target) << " " << SlidingWindows(nums, n, target);
     delete [] nums;
     return 0;
 }
