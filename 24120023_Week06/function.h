@@ -22,6 +22,6 @@ vector<Company> readCompanyList(string file_name);
 // 2. Hash a string (company name) function:
 long long hashString(string company_name);
 HashTable* createHashTable(vector<Company> list_company);
-bool insertCompany(HashTable* table, Company company);
-Company* searchCompany(HashTable* table, string company_name);
+bool insert(HashTable* table, Company company);
+Company* search(HashTable* table, string company_name);
 #endif

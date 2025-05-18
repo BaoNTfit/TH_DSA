@@ -17,7 +17,7 @@ int main(int argc, char* argv[]) {
     table = createHashTable(companies);
     string line;
     while (getline(input, line)) {
-        Company* company = searchCompany(table,line);
+        Company* company = search(table,line);
         output << company->name << "|" << company->profit_tax << "|" << company->address << endl;
     }
     input.close();
