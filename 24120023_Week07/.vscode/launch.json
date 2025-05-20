@@ -1,0 +1,13 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "lldb",
+      "request": "launch",
+      "args": [],
+      "cwd": "/Users/thanhbao/Desktop/HK2_24:25/Cấu Trúc Dữ Liệu - Giải Thuật/TH_DSA/24120023_Week07",
+      "program": "/Users/thanhbao/Desktop/HK2_24:25/Cấu Trúc Dữ Liệu - Giải Thuật/TH_DSA/24120023_Week07/build/Debug/outDebug"
+    }
+  ]
+}
